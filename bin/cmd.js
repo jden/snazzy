@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var CompactToStylishStream = require('../')
+var StandardCodeclimateTransform = require('../')
 var cp = require('child_process')
 var minimist = require('minimist')
 var path = require('path')
@@ -10,26 +10,30 @@ if (/^win/.test(process.platform)) STANDARD_CMD += '.cmd'
 
 var argv = minimist(process.argv.slice(2), {
   boolean: [
-    'stdin'
+    'stdin',
+    'null-delimited'
   ]
 })
 
-var snazzy = new CompactToStylishStream()
+var standardCodeclimate = new StandardCodeclimateTransform({
+  nullDelimited: argv['null-delimited']
+})
 
 process.on('exit', function (code) {
-  if (code === 0 && snazzy.exitCode !== 0) {
-    process.exit(snazzy.exitCode)
+  if (code === 0 && standardCodeclimate.exitCode !== 0) {
+    process.exit(standardCodeclimate.exitCode)
   }
 })
 process.stdout.on('error', function () {})
 
 if (!process.stdin.isTTY || argv._[0] === '-' || argv.stdin) {
-  process.stdin.pipe(snazzy).pipe(process.stdout)
+  process.stdin.pipe(standardCodeclimate).pipe(process.stdout)
 } else {
   var args = process.argv.slice(2)
+  args.push('-v')
   var standard = cp.spawn(STANDARD_CMD, args)
-  standard.stderr.pipe(process.stderr)
-  standard.stdout.pipe(snazzy).pipe(process.stdout)
+  // standard.stderr.pipe(process.stderr)
+  standard.stdout.pipe(standardCodeclimate).pipe(process.stdout)
 
   var standardCode
   standard.on('exit', function (code) { standardCode = code })

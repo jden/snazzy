@@ -1,46 +1,44 @@
 {
-  "name": "snazzy",
-  "description": "Format JavaScript Standard Style as Stylish (i.e. snazzy) output",
-  "version": "2.0.1",
+  "name": "standard-codeclimate",
+  "description": "Format JavaScript Standard Style as CodeClimate engine output",
+  "version": "1.0.0",
   "author": {
-    "name": "Feross Aboukhadijeh",
-    "email": "feross@feross.org",
-    "url": "http://feross.org/"
+    "name": "jden",
+    "email": "jason@denizac.org",
+    "url": "https://jden.us/"
   },
   "bin": {
-    "snazzy": "./bin/cmd.js"
+    "standard-codeclimate": "./bin/cmd.js"
   },
   "bugs": {
-    "url": "https://github.com/feross/snazzy/issues"
+    "url": "https://github.com/jden/standard-codeclimate/issues"
   },
   "dependencies": {
-    "chalk": "^1.1.0",
     "inherits": "^2.0.1",
     "minimist": "^1.1.1",
     "standard": "^5.0.0",
-    "standard-json": "^1.0.0",
-    "text-table": "^0.2.0"
+    "standard-json": "^1.0.0"
   },
-  "homepage": "https://github.com/feross/snazzy",
+  "homepage": "https://github.com/jden/standard-codeclimate",
   "keywords": [
-    "stylish standard",
-    "stylish for standard",
-    "stylish formatter",
-    "snazzy standard",
-    "stylish",
-    "stylish reporter",
     "standard",
-    "pretty output",
-    "pretty",
-    "standard pretty"
+    "codeclimate",
+    "json"
   ],
-  "license": "MIT",
+  "license": "ISC",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/feross/snazzy.git"
+    "url": "git://github.com/jden/standard-codeclimate.git"
   },
   "scripts": {
-    "test": "./bin/cmd.js --verbose"
+    "pretest": "standard",
+    "test": "node test"
+  },
+  "devDependencies": {
+    "concat-stream": "^1.5.1",
+    "join-stream2": "^0.1.0",
+    "literal-stream": "^0.1.0",
+    "split": "^1.0.0"
   }
 }
